@@ -165,8 +165,175 @@
 <Type>Adres</Type>
 </Property>
 </Class>
-  
-  <Class name="Sklep.Pracownik">
+
+
+<Class name="Sklep.Paragon">
+<StorageStrategy/>
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>65158,59302.880236</TimeChanged>
+<TimeCreated>65158,59302.155653</TimeCreated>
+
+<Property name="DataParagonu">
+<Type>%Date</Type>
+</Property>
+
+<Property name="WartoscParagonu">
+<Type>%Double</Type>
+</Property>
+
+<Property name="Rozszerza">
+<Type>Sklep.ParagonLista</Type>
+<Cardinality>many</Cardinality>
+<Inverse>rozszerza</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="przynalezy">
+<Type>Sklep.Klient</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Przynalezy</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="przynalezyIndex">
+<Properties>przynalezy</Properties>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Sklep.Paragon</DataLocation>
+<DefaultData>ParagonDefaultData</DefaultData>
+<IdLocation>^C.Sklep.Paragon</IdLocation>
+<IndexLocation>^I.Sklep.Paragon</IndexLocation>
+<StreamLocation>^S.Sklep.Paragon</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="ParagonDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>DataParagon</Value>
+</Value>
+<Value name="2">
+<Value>WartoscParagon</Value>
+</Value>
+<Value name="3">
+<Value>przynalezy</Value>
+</Value>
+</Data>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.1</AverageFieldSize>
+</Property>
+<Property name="%RECORD">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>11.9</AverageFieldSize>
+</Property>
+<Property name="DataParagonu">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="WartoscParagon">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>3.9</AverageFieldSize>
+</Property>
+<Property name="przynalezy">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="przynalezyIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="Sklep.ParagonLista">
+<StorageStrategy/>
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>65165,64126.377425</TimeChanged>
+<TimeCreated>65165,64126.125955</TimeCreated>
+
+<Property name="Liczba">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="cenaZakupu">
+<Type>%Double</Type>
+</Property>
+
+<Property name="Zawiera">
+<Type>Sklep.Produkt</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Zawiera</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="rozszerza">
+<Type>Sklep.Paragon</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Rozszerza</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="rozszerzaIndex">
+<Properties>rozszerza</Properties>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^D.5</DataLocation>
+<DefaultData>ParagonListaDefaultData</DefaultData>
+<IdLocation>^C.D.5</IdLocation>
+<IndexLocation>^I.D.5</IndexLocation>
+<StreamLocation>^S.D.5</StreamLocation>
+<ExtentSize>20</ExtentSize>
+<Data name="ParagonListaDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>Liczba</Value>
+</Value>
+<Value name="2">
+<Value>cenaZakupu</Value>
+</Value>
+<Value name="3">
+<Value>rozszerza</Value>
+</Value>
+</Data>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.55</AverageFieldSize>
+</Property>
+<Property name="%RECORD">
+<Selectivity>5.0000%</Selectivity>
+<AverageFieldSize>15.9</AverageFieldSize>
+</Property>
+<Property name="Liczba">
+<Selectivity>5.0000%</Selectivity>
+<AverageFieldSize>8.9</AverageFieldSize>
+</Property>
+<Property name="cenaZakupu">
+<Selectivity>5.0000%</Selectivity>
+<AverageFieldSize>3.8</AverageFieldSize>
+</Property>
+<Property name="rozszerza">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>1.2</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="rozszerzaIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="Sklep.Pracownik">
 <Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,%MV.Adaptor,Sklep.Osoba</Super>
 <TimeChanged>65158,57686.50894</TimeChanged>
 <TimeCreated>65158,57686.13231</TimeCreated>
@@ -264,5 +431,185 @@
 </Storage>
 </Class>
 
-  <Package name="Sklep" sqlname="Sklep"/>
+
+<Class name="Sklep.Produkt">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,%MV.Adaptor</Super>
+<TimeChanged>65158,59321.071384</TimeChanged>
+<TimeCreated>65158,59320.868684</TimeCreated>
+
+<Property name="sprzedaje">
+<Type>Sklep.Sklep</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Sprzedaje</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="sprzedajeIndex">
+<Properties>sprzedaje</Properties>
+</Index>
+
+<Property name="Nazwa">
+<Type>%String</Type>
+</Property>
+
+<Property name="Cena">
+<Type>%Double</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Sklep.Produkt</DataLocation>
+<DefaultData>ProduktDefaultData</DefaultData>
+<IdLocation>^C.Sklep.Produkt</IdLocation>
+<IndexLocation>^I.Sklep.Produkt</IndexLocation>
+<State>ProduktState</State>
+<StreamLocation>^Sklep.ProduktS</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="ProduktDefaultData">
+<Subscript>"1"</Subscript>
+<Value name="1">
+<Value>Ilosc</Value>
+</Value>
+<Value name="2">
+<Value>Zawiera</Value>
+</Value>
+</Data>
+<Data name="ProduktState">
+<Value name="1">
+<Value>sprzedaje</Value>
+</Value>
+<Value name="2">
+<Value>Nazwa</Value>
+</Value>
+<Value name="3">
+<Value>Cena</Value>
+</Value>
+</Data>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.1</AverageFieldSize>
+</Property>
+<Property name="%RECORD">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>3.5</AverageFieldSize>
+</Property>
+<Property name="Cena">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>3.9</AverageFieldSize>
+</Property>
+<Property name="Ilosc">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>1.5</AverageFieldSize>
+</Property>
+<Property name="Nazwa">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.7</AverageFieldSize>
+</Property>
+<Property name="Zawiera">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="sprzedaje">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="ZawieraIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="sprzedajeIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+
+<Property name="Ilosc">
+<Type>%Integer</Type>
+<Parameter name="MAXVAL" value="20"/>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Method name="obliczSume">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set returnVal=..Cena*..Ilosc
+	return returnVal
+]]></Implementation>
+</Method>
+
+<Property name="Zawiera">
+<Type>Sklep.ParagonLista</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Zawiera</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="ZawieraIndex">
+<Properties>Zawiera</Properties>
+</Index>
+</Class>
+
+
+<Class name="Sklep.Sklep">
+<Owner>Sklep</Owner>
+<StorageStrategy/>
+<Super>%Persistent</Super>
+<TimeChanged>65158,58031.051245</TimeChanged>
+<TimeCreated>65158,58030.231332</TimeCreated>
+
+<Property name="Nazwa">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="NazwaGet">
+<ReturnType>%String</ReturnType>
+<ServerOnly>1</ServerOnly>
+<Implementation><![CDATA[	Quit ""
+]]></Implementation>
+</Method>
+
+<Method name="NazwaSet">
+<FormalSpec>Arg:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<ServerOnly>1</ServerOnly>
+<Implementation><![CDATA[	Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Property name="zatrudnia">
+<Type>Sklep.Pracownik</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Sklep</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Sprzedaje">
+<Type>Sklep.Produkt</Type>
+<Cardinality>many</Cardinality>
+<Inverse>sprzedaje</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Sklep.SklepD</DataLocation>
+<DefaultData>SklepDefaultData</DefaultData>
+<IdLocation>^Sklep.SklepD</IdLocation>
+<IndexLocation>^Sklep.SklepI</IndexLocation>
+<StreamLocation>^Sklep.SklepS</StreamLocation>
+<Data name="SklepDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Nazwa</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Package name="Sklep" sqlname="Sklep"/>
 </Export>
