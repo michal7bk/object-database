@@ -1,1 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2016.2.1 (Build 803U_SU)" ts="2019-06-01 18:54:49">
+<Class name="Sklep.Adres">
+<SqlTableName>Adres</SqlTableName>
+<Super>%Persistent</Super>
+<TimeChanged>65165,68396.166263</TimeChanged>
+<TimeCreated>65158,59254.280339</TimeCreated>
 
+<Property name="Ulica">
+<Type>%String</Type>
+</Property>
+
+<Property name="NrUlicy">
+<Type>%Integer</Type>
+</Property>
+
+<Property name="NrDomu">
+<Type>%Integer</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Sklep.AdresD</DataLocation>
+<DefaultData>AdresDefaultData</DefaultData>
+<IdLocation>^Sklep.AdresD</IdLocation>
+<IndexLocation>^Sklep.AdresI</IndexLocation>
+<StreamLocation>^Sklep.AdresS</StreamLocation>
+<Data name="AdresDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Ulica</Value>
+</Value>
+<Value name="3">
+<Value>NrUlicy</Value>
+</Value>
+<Value name="4">
+<Value>NrDomu</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Sklep.Klient">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,%MV.Adaptor,Sklep.Osoba</Super>
+<TimeChanged>65158,59254.280339</TimeChanged>
+<TimeCreated>65158,59254.183232</TimeCreated>
+
+<Property name="NumerKartyStalegoKlienta">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="PodajDane">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set returnString= ..Imie _" "_ ..Nazwisko _" "_..NumerKartyStalegoKlienta
+	Return returnString
+]]></Implementation>
+</Method>
+
+<Property name="Przynalezy">
+<Type>Sklep.Paragon</Type>
+<Cardinality>many</Cardinality>
+<Inverse>przynalezy</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="KodPocztowy">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Sklep.Klient</DataLocation>
+<DefaultData>KlientDefaultData</DefaultData>
+<IdLocation>^C.Sklep.Klient</IdLocation>
+<IndexLocation>^I.Sklep.Klient</IndexLocation>
+<StreamLocation>^S.Sklep.Klient</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="KlientDefaultData">
+<Value name="1">
+<Value>Adres</Value>
+</Value>
+<Value name="2">
+<Value>Imie</Value>
+</Value>
+<Value name="3">
+<Value>KodPocztowy</Value>
+</Value>
+<Value name="4">
+<Value>Nazwisko</Value>
+</Value>
+<Value name="5">
+<Value>NumerKartyStalegoKlienta</Value>
+</Value>
+<Value name="6">
+<Value>FirstName</Value>
+</Value>
+</Data>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.1</AverageFieldSize>
+</Property>
+<Property name="%RECORD">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>23.5</AverageFieldSize>
+</Property>
+<Property name="Adres">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Imie">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.8</AverageFieldSize>
+</Property>
+<Property name="KodPocztowy">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.8</AverageFieldSize>
+</Property>
+<Property name="Nazwisko">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="NumerKartyStalegoKlienta">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.9</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="Sklep.Osoba">
+<Abstract>1</Abstract>
+<TimeChanged>65158,51789.475016</TimeChanged>
+<TimeCreated>65158,51789.213223</TimeCreated>
+
+<Property name="Imie">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Nazwisko">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="PodajDane">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set returnString= ..Imie_" "_ ..Nazwisko
+	Return returnString
+]]></Implementation>
+</Method>
+
+<Property name="Adres">
+<Type>Adres</Type>
+</Property>
+</Class>
+  
+  <Class name="Sklep.Pracownik">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,%MV.Adaptor,Sklep.Osoba</Super>
+<TimeChanged>65158,57686.50894</TimeChanged>
+<TimeCreated>65158,57686.13231</TimeCreated>
+
+<Property name="Sklep">
+<Type>Sklep.Sklep</Type>
+<Cardinality>one</Cardinality>
+<Inverse>zatrudnia</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="SklepIndex">
+<Properties>Sklep</Properties>
+</Index>
+
+<Property name="IloscGodzinPrzepracowanych">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="policzWynagrodzenie">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set returnVal= ..IloscGodzinPrzepracowanych*32
+	return returnVal
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Sklep.Pracownik</DataLocation>
+<DefaultData>PracownikDefaultData</DefaultData>
+<IdLocation>^C.Sklep.Pracownik</IdLocation>
+<IndexLocation>^I.Sklep.Pracownik</IndexLocation>
+<StreamLocation>^S.Sklep.Pracownik</StreamLocation>
+<ExtentSize>10</ExtentSize>
+<Data name="PracownikDefaultData">
+<Value name="1">
+<Value>Adres</Value>
+</Value>
+<Value name="2">
+<Value>IloscGodzinPrzepracowanych</Value>
+</Value>
+<Value name="3">
+<Value>Imie</Value>
+</Value>
+<Value name="4">
+<Value>Nazwisko</Value>
+</Value>
+<Value name="5">
+<Value>Sklep</Value>
+</Value>
+<Value name="6">
+<Value>FirstName</Value>
+</Value>
+</Data>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.1</AverageFieldSize>
+</Property>
+<Property name="%RECORD">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>22.4</AverageFieldSize>
+</Property>
+<Property name="Adres">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="FirstName">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="IloscGodzinPrzepracowanych">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>9</AverageFieldSize>
+</Property>
+<Property name="Imie">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.7</AverageFieldSize>
+</Property>
+<Property name="Nazwisko">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.7</AverageFieldSize>
+</Property>
+<Property name="Sklep">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="SklepIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+  <Package name="Sklep" sqlname="Sklep"/>
+</Export>
